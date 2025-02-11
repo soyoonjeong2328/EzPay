@@ -7,12 +7,10 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      postgres:
-        condition: service_healthy
-      kafka:
-        condition: service_started
+      - postgres
+      - kafka
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: syj30408!!
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
@@ -66,10 +64,6 @@ services:
     networks:
       - kafka-network
       - my_network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      retries: 5
 
 volumes:
   postgres_data:
