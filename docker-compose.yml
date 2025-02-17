@@ -1,6 +1,6 @@
 #version: '3.8'
 services:
-  app:
+  app: # 서비스 이름
     restart: always
     build: .
     container_name: my_spring_app
